@@ -1,6 +1,7 @@
-package chapter02
+package test
 
 import (
+	cp2 "algorithms/p1/chapter02"
 	"fmt"
 	"testing"
 )
@@ -9,11 +10,11 @@ func TestInsert(t *testing.T) {
 
 	fmt.Println("test insert sort func")
 
-	arr := GetRandomArr(30, 100)
-	cmp := Compare(false)
+	arr := cp2.GetRandomArr(30, 100)
+	cmp := cp2.Compare(false)
 
 	fmt.Printf("arr: %v\n", arr)
-	result := Insert_sort(arr, cmp)
+	result := cp2.Insert_sort(arr, cmp)
 
 	fmt.Printf("result: %v\n", result)
 }
@@ -24,11 +25,11 @@ func TestValidSquence(t *testing.T) {
 		a[i] = i
 	}
 
-	fmt.Printf("result: %v\n", ValidSquence(a, Compare(true)))
+	fmt.Printf("result: %v\n", cp2.ValidSquence(a, cp2.Compare(true)))
 }
 
 func TestSelect(t *testing.T) {
-	TestSort(true, 30, 100, Select_sort)
+	cp2.TestSort(true, 30, 100, cp2.Select_sort)
 }
 
 func TestExchange(t *testing.T) {
@@ -36,12 +37,12 @@ func TestExchange(t *testing.T) {
 
 	arr[0] = 1
 	arr[1] = 2
-	Exchange(arr, 0, 1)
+	cp2.Exchange(arr, 0, 1)
 
 	fmt.Print(arr)
 
 }
 
 func TestMerge(t *testing.T) {
-	TestSort(true, 200, 100, MergeSort)
+	cp2.TestSort(true, 200, 100, cp2.MergeSort)
 }
