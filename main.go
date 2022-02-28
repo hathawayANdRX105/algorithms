@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	cp2 "algorithms/p1/chapter02"
+)
 
 func main() {
-	fmt.Print("hello world!")
+	isAsc := true
+	arraySize , rangeSize := 100, 100
+	cp2.TestSort(isAsc, arraySize, rangeSize, cp2.MergeSort)
 }
