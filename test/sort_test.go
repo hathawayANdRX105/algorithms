@@ -1,13 +1,13 @@
 package test
 
 import (
-	cp2 "algorithms/p1/chapter02"
 	"fmt"
 	"testing"
+
+	cp2 "algorithms/pkg/chapter02"
 )
 
 func TestInsert(t *testing.T) {
-
 	fmt.Println("test insert sort func")
 
 	arr := cp2.GetRandomArr(30, 100)
@@ -19,13 +19,13 @@ func TestInsert(t *testing.T) {
 	fmt.Printf("result: %v\n", result)
 }
 
-func TestValidSquence(t *testing.T) {
+func TestValidSequence(t *testing.T) {
 	a := make([]int, 20)
 	for i := 0; i < 20; i++ {
 		a[i] = i
 	}
 
-	fmt.Printf("result: %v\n", cp2.ValidSquence(a, cp2.Compare(true)))
+	fmt.Printf("result: %v\n", cp2.ValidSequence(a, cp2.Compare(true)))
 }
 
 func TestSelect(t *testing.T) {
@@ -40,7 +40,6 @@ func TestExchange(t *testing.T) {
 	cp2.Exchange(arr, 0, 1)
 
 	fmt.Print(arr)
-
 }
 
 func TestMerge(t *testing.T) {

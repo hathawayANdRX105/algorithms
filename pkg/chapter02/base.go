@@ -32,7 +32,7 @@ func Exchange(arr []int, e1, e2 int) {
 }
 
 // pass a array to valid which is sort by order
-func ValidSquence(arr []int, cmp func(o1, o2 int) bool) bool {
+func ValidSequence(arr []int, cmp func(o1, o2 int) bool) bool {
 	if len(arr) < 2 {
 		return true
 	}
@@ -63,7 +63,7 @@ func TestSort(isAsc bool, arraySize, rangeSize int, sort func(arr []int, cmp fun
 	cmp := Compare(isAsc)
 	targetArr := sort(arr, cmp)
 
-	isSort := ValidSquence(targetArr, cmp)
+	isSort := ValidSequence(targetArr, cmp)
 
 	fmt.Printf("ramdom arr: %v\n", arr)
 	fmt.Printf("sort arr:   %v\n", targetArr)
