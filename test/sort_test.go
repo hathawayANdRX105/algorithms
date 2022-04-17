@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	cp2 "algorithms/pkg/chapter02"
+	cp2 "algorithms/pkg/cp02"
 )
 
 func TestInsert(t *testing.T) {

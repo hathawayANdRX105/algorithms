@@ -5,6 +5,13 @@
 *.so
 *.dylib
 
+# some kinds of new ignore files
+*.vscode
+.osidian
+.projectile
+.mark
+*.idea
+
 # Test binary, built with `go test -c`
 *.test
 

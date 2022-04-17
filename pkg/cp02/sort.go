@@ -1,4 +1,4 @@
-package chapter02
+package cp02
 
 // sustain a sequence array from start to end
 func Insert_sort(arr []int, cmp func(o1, o2 int) bool) []int {

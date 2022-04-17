@@ -1,11 +1,18 @@
-package chapter02
+package cp02
 
 import (
 	"fmt"
 	"math/rand"
+	"testing"
+	"time"
 )
 
-// retrun a func which can decide order by pass a specific value
+func init() {
+	seed := time.Now().UnixNano()
+	rand.Seed(seed)
+}
+
+// Compare return a func which can decide order by pass a specific value
 func Compare(isAsc bool) func(o1, o2 int) bool {
 	if isAsc {
 		return isLess
@@ -22,8 +29,8 @@ func isGreater(o1, o2 int) bool {
 	return o1 >= o2
 }
 
-// this fuc will exchange tow value
-// arr must be slice with pointer
+// Exchange this fuc will exchange tow value
+// arr must be a slice with pointer
 // and e1 , e2 is the index of exchange
 func Exchange(arr []int, e1, e2 int) {
 	temp := arr[e1]
@@ -31,7 +38,7 @@ func Exchange(arr []int, e1, e2 int) {
 	arr[e2] = temp
 }
 
-// pass a array to valid which is sort by order
+// ValidSequence pass a array to valid which is sort by order
 func ValidSequence(arr []int, cmp func(o1, o2 int) bool) bool {
 	if len(arr) < 2 {
 		return true
@@ -46,9 +53,8 @@ func ValidSequence(arr []int, cmp func(o1, o2 int) bool) bool {
 	return true
 }
 
-// generate a random array by pass indicate number
+// GetRandomArr generate a random array by pass indicate number
 func GetRandomArr(arraySize, rangeSize int) []int {
-	rand.Seed(1111)
 
 	arr := make([]int, arraySize)
 	for i := 0; i < arraySize; i++ {
@@ -68,4 +74,14 @@ func TestSort(isAsc bool, arraySize, rangeSize int, sort func(arr []int, cmp fun
 	fmt.Printf("ramdom arr: %v\n", arr)
 	fmt.Printf("sort arr:   %v\n", targetArr)
 	fmt.Printf("isSort: %v\n", isSort)
+}
+
+func CountDown(t *testing.T, recordFunc func()) {
+	startTime := time.Now()
+
+	recordFunc()
+
+	elapsedTime := time.Since(startTime)
+	t.Logf("func elapse time:%s", elapsedTime)
+	t.Log(elapsedTime)
 }
