@@ -34,3 +34,5 @@ func TestFindMaxSubArray(t *testing.T) {
 	t.Logf("Linear       low:%d, high:%d, sum:%d", begin, end, sum)
 
 }
+
+
