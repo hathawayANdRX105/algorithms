@@ -1,20 +1,19 @@
 package test
 
 import (
+	"algorithms/intro_algorithms/cp02"
 	"fmt"
 	"testing"
-
-	cp2 "algorithms/pkg/cp02"
 )
 
 func TestInsert(t *testing.T) {
 	fmt.Println("test insert sort func")
 
-	arr := cp2.GetRandomArr(30, 100)
-	cmp := cp2.Compare(false)
+	arr := cp02.GetRandomArr(30, 100)
+	cmp := cp02.Compare(false)
 
 	fmt.Printf("arr: %v\n", arr)
-	result := cp2.Insert_sort(arr, cmp)
+	result := cp02.Insert_sort(arr, cmp)
 
 	fmt.Printf("result: %v\n", result)
 }
@@ -25,11 +24,11 @@ func TestValidSequence(t *testing.T) {
 		a[i] = i
 	}
 
-	fmt.Printf("result: %v\n", cp2.ValidSequence(a, cp2.Compare(true)))
+	fmt.Printf("result: %v\n", cp02.ValidSequence(a, cp02.Compare(true)))
 }
 
 func TestSelect(t *testing.T) {
-	cp2.TestSort(true, 30, 100, cp2.Select_sort)
+	cp02.TestSort(true, 30, 100, cp02.Select_sort)
 }
 
 func TestExchange(t *testing.T) {
@@ -37,11 +36,11 @@ func TestExchange(t *testing.T) {
 
 	arr[0] = 1
 	arr[1] = 2
-	cp2.Exchange(arr, 0, 1)
+	cp02.Exchange(arr, 0, 1)
 
 	fmt.Print(arr)
 }
 
 func TestMerge(t *testing.T) {
-	cp2.TestSort(true, 200, 100, cp2.MergeSort)
+	cp02.TestSort(true, 200, 100, cp02.MergeSort)
 }

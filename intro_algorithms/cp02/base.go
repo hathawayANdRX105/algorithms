@@ -80,7 +80,6 @@ func CountDown(t *testing.T, recordFunc func()) {
 	startTime := time.Now()
 
 	recordFunc()
-
 	elapsedTime := time.Since(startTime)
 	t.Logf("func elapse time:%s", elapsedTime)
 	t.Log(elapsedTime)
