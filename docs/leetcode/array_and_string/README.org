@@ -1,7 +1,8 @@
 #+STARTUP: indent
+#+OPTIONS: \n: t
 
 * 数组
-** 寻找数组的中心索引
+** [[https://leetcode.cn/leetbook/read/array-and-string/yf47s/][寻找数组的中心索引]]
 给你一个整数数组 nums ，请计算数组的 中心下标 。
 数组 中心下标 是数组的一个下标，其左侧所有元素相加的和等于右侧所有元素相加的和。
 如果中心下标位于数组最左端，那么左侧数之和视为 0 ，因为在下标的左侧不存在元素。这一点对于中心下标位于数组最右端同样适用。
@@ -40,6 +41,7 @@
 
 *** Code in pivot_index.go
 思路：
+
 存在等式 2 * leftSum = sum
 一遍求总和，一遍寻找中心点
 
@@ -67,9 +69,8 @@
 
 #+end_src
 
-链接：https://leetcode.cn/leetbook/read/array-and-string/yf47s/
 
-** 搜索插入位置
+** [[https://leetcode.cn/leetbook/read/array-and-string/cxqdh][搜索插入位置]]
 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
 请必须使用时间复杂度为 O(log n) 的算法。
 
@@ -128,9 +129,8 @@ nums 为 无重复元素 的 升序 排列数组
 
 #+end_src
 
-链接：https://leetcode.cn/leetbook/read/array-and-string/cxqdh/
 
-** 合并区间
+** [[https://leetcode.cn/leetbook/read/array-and-string/c5tv3/][合并区间]]
 以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回 一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
 
 *** 示例
@@ -254,11 +254,9 @@ intervals[i].length == 2
 
 #+end_src
 
-链接：https://leetcode.cn/leetbook/read/array-and-string/c5tv3/
-
 
 * 二维数组
-** 旋转矩阵
+** [[https://leetcode.cn/leetbook/read/array-and-string/clpgd/][旋转矩阵]]
 给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。请你设计一种算法，将图像旋转 90 度。
 不占用额外内存空间能否做到？
 
@@ -328,4 +326,164 @@ intervals[i].length == 2
 
 #+end_src
 
-链接：https://leetcode.cn/leetbook/read/array-and-string/clpgd/
+** [[https://leetcode.cn/leetbook/read/array-and-string/ciekh/][零矩阵]]
+编写一种算法，若M × N矩阵中某个元素为0，则将其所在的行与列清零。
+
+*** 示例
+#+begin_example
+示例 1：
+
+输入：
+[
+  [1,1,1],
+  [1,0,1],
+  [1,1,1]
+]
+输出：
+[
+  [1,0,1],
+  [0,0,0],
+  [1,0,1]
+]
+示例 2：
+
+输入：
+[
+  [0,1,2,0],
+  [3,4,5,2],
+  [1,3,1,5]
+]
+输出：
+[
+  [0,0,0,0],
+  [0,4,5,0],
+  [0,3,1,0]
+]
+
+#+end_example
+
+*** Code in set_zeros.go
+思路：
+1. 先进行一次遍历，利用一个数组，长度为行+列，记录行列需要置零的位置
+2. 再利用记录，进行置零矩阵
+
+#+begin_src go
+  // time:  O(m*n)
+  // space: O(m+n)
+  func SetZeroes(matrix [][]int) {
+          row, col := len(matrix), len(matrix[0])
+          // i ~ row, row + j ~ row + col
+          record := make([]bool, row+col)
+
+          for i := 0; i < row; i++ {
+                  for j := 0; j < col; j++ {
+                          if matrix[i][j] != 0 {
+                                  continue
+                          } else {
+                                  record[i] = true
+                                  record[row+j] = true
+                          }
+                  }
+          }
+
+          for i := 0; i < row; i++ {
+                  for j := 0; j < col; j++ {
+                          if record[i] || record[row+j] {
+                                  matrix[i][j] = 0
+                          }
+                  }
+          }
+  }
+
+#+end_src
+
+
+** [[https://leetcode.cn/leetbook/read/array-and-string/cuxq3/][对角线遍历]]
+给你一个大小为 m x n 的矩阵 mat ，请以对角线遍历的顺序，用一个数组返回这个矩阵中的所有元素。
+
+[[file:../../../assets/leetcode/diag1-grid.jpg]]
+
+*** 示例
+#+begin_example
+示例 1：
+输入：mat = [[1,2,3],[4,5,6],[7,8,9]]
+输出：[1,2,4,7,5,3,6,8,9]
+
+示例 2：
+输入：mat = [[1,2],[3,4]]
+输出：[1,2,3,4]
+
+提示：
+m == mat.length
+n == mat[i].length
+1 <= m, n <= 104
+1 <= m * n <= 104
+-105 <= mat[i][j] <= 105
+
+#+end_example
+
+*** Code in find_diagonal_order.go
+如何分别对角线遍历方向？
+利用当前行列位置之和取余(i+j)%2
+如果为偶数则是斜向向下，反之则斜向向上,如图上所示
+
+分析斜上对角线越界：
+1. 碰壁发生在col超过最大列时
+   行数需要加2，列数需要减1
+2. 如果col小于最大列时
+   只需要行数加1
+
+分析歇夏对角线遍历越界：
+1. 碰壁发生在row超过最大行时
+   行数需要减1，列数需要加2
+2. 如果row小于最大行时
+   只需要列数加1   
+
+#+begin_src go
+  
+  func FindDiagonalOrder(mat [][]int) []int {
+          row, col := len(mat), len(mat[0])
+          result := make([]int, row*col)
+
+          var i, j, c int
+          for c < row*col {
+                  if (i+j)%2 == 0 {
+                          // upward diagonal
+                          for 0 <= i && j < col {
+
+                                  result[c] = mat[i][j]
+                                  i--
+                                  j++
+                                  c++
+                          }
+
+                          if j < col {
+                                  i += 1
+                          } else {
+                                  i += 2
+                                  j -= 1
+                          }
+
+                  } else {
+                          // downward diagonal
+                          for 0 <= j && i < row {
+                                  result[c] = mat[i][j]
+                                  i++
+                                  j--
+                                  c++
+                          }
+
+                          if i < row {
+                                  j += 1
+                          } else {
+                                  i -= 1
+                                  j += 2
+                          }
+
+                  }
+          }
+
+          return result
+  }
+
+#+end_src
