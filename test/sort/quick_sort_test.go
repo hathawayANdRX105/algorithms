@@ -23,7 +23,7 @@ func TestShuffle(t *testing.T) {
 	rand.Shuffle(len(tempArr), func(i, j int) {
 		tempArr[i], tempArr[j] = tempArr[j], tempArr[i]
 	})
-
+	
 	fmt.Printf("after shuffle %v \n", tempArr)
 
 }

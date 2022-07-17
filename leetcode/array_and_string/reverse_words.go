@@ -1,7 +1,7 @@
 package array_and_string
 
-// ReverseWords ...
-func ReverseWords(s string) string {
+// ReverseWords1 翻转字符串里的单词,保持单词顺序不变
+func ReverseWords1(s string) string {
 	stack := make([]string, len(s), len(s))
 
 	var size int
@@ -43,4 +43,38 @@ func ReverseWords(s string) string {
 	}
 
 	return result[:len(result)-1]
+}
+
+// ReverseWords2 反转字符串中的单词 III, 保持单词顺序，翻转每个单词的字符
+func ReverseWords2(s string) string {
+
+	var l, r int
+	strByteArr := []byte(s)
+
+	// 单词翻转, word[i, j] 闭区间
+	reverseSingle := func(b []byte, i, j int) {
+		for i < j {
+			b[i], b[j] = b[j], b[i]
+			i++
+			j--
+		}
+	}
+
+	for ; r < len(s); r++ {
+		if strByteArr[r] == ' ' {
+			reverseSingle(strByteArr, l, r-1)
+
+			l = r + 1
+		}
+	}
+
+	// 题目说明字符串开头结尾不含空格，直接对最后一个单词翻转
+	reverseSingle(strByteArr, l, r-1)
+
+	// 考虑最后可能有空格结尾，则说明最后一个单词还没翻转
+	// if strByteArr[r-1] != ' ' {
+	// 	reverseSingle(strByteArr, l, r-1)
+	// }
+
+	return string(strByteArr)
 }

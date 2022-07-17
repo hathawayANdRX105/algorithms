@@ -4,6 +4,7 @@ import (
 	"math"
 )
 
+
 // FindMaximumSubArray recursive
 func FindMaximumSubArray(arr []int, low, high int) (int, int, int) {
 	if low == high {
@@ -11,7 +12,7 @@ func FindMaximumSubArray(arr []int, low, high int) (int, int, int) {
 	}
 
 	mid := (high-low)/2 + low
-
+	
 	// divide tow-sub arr to find maximum sub arr between low-mid and mid+1-high
 	leftLow, leftHigh, leftSum := FindMaximumSubArray(arr, low, mid)
 	rightLow, rightHigh, rightSum := FindMaximumSubArray(arr, mid+1, high)
@@ -26,7 +27,7 @@ func FindMaximumSubArray(arr []int, low, high int) (int, int, int) {
 	if crossSum > leftSum {
 		leftLow, leftHigh, leftSum = crossLow, crossHigh, crossSum
 	}
-
+	
 	return leftLow, leftHigh, leftSum
 }
 

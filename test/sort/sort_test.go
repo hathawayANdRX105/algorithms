@@ -1,4 +1,4 @@
-package test
+package sort_test
 
 import (
 	"algorithms/intro_algorithms/cp02"

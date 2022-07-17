@@ -1,4 +1,5 @@
-package cp04_test
+package intro_to_algorithms_test
+
 
 import (
 	"algorithms/intro_algorithms/cp04"

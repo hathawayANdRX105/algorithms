@@ -1,4 +1,5 @@
-package cp32_test
+package intro_to_algorithms_test
+
 
 import (
 	"algorithms/intro_algorithms/cp32"
@@ -9,7 +10,7 @@ func TestComputePrefixFunction(t *testing.T) {
 	pattern := "ababaca"
 
 	next := cp32.GetNext(pattern)
-
+	
 	t.Logf("%v", next)
 }
 
@@ -21,3 +22,4 @@ func TestKMPMatcher(t *testing.T) {
 
 	t.Logf("%v", subStr)
 }
+

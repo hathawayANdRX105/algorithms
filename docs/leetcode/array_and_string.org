@@ -1,130 +1,128 @@
-* 寻找数组的中心索引
+#+STARTUP: indent
+
+* 数组
+** 寻找数组的中心索引
 给你一个整数数组 nums ，请计算数组的 中心下标 。
 数组 中心下标 是数组的一个下标，其左侧所有元素相加的和等于右侧所有元素相加的和。
 如果中心下标位于数组最左端，那么左侧数之和视为 0 ，因为在下标的左侧不存在元素。这一点对于中心下标位于数组最右端同样适用。
 如果数组有多个中心下标，应该返回 最靠近左边 的那一个。如果数组不存在中心下标，返回 -1 。
 
-示例 1：
-#+begin_src
+- 示例 1：
   输入：nums = [1, 7, 3, 6, 5, 6]
   输出：3
   解释：
   中心下标是 3 。
   左侧数之和 sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11 ，
   右侧数之和 sum = nums[4] + nums[5] = 5 + 6 = 11 ，二者相等。
-#+end_src
-
-示例 2：
-#+begin_src 
+  
+- 示例 2：
   输入：nums = [1, 2, 3]
   输出：-1
   解释：
   数组中不存在满足此条件的中心下标。
-#+end_src
 
-示例 3：
-#+begin_src
+- 示例 3：
   输入：nums = [2, 1, -1]
   输出：0
   解释：
   中心下标是 0 。
   左侧数之和 sum = 0 ，（下标 0 左侧不存在元素），
   右侧数之和 sum = nums[1] + nums[2] = 1 + -1 = 0 。
-#+end_src 
 
-提示：
-1 <= nums.length <= 104
--1000 <= nums[i] <= 1000
+- 提示：
+  1 <= nums.length <= 104
+  -1000 <= nums[i] <= 1000
 
-链接：https://leetcode.cn/leetbook/read/array-and-string/yf47s/
+- 思路：
+  存在等式 2 * leftSum = sum
+  一遍求总和，一遍寻找中心点
 
-Code:
+Code in pivot_index.go
 #+begin_src go
   
-func pivotIndex(nums []int) int {
+  func PivotIndex3(nums []int) int {
+          var totalSum int
+          var leftSum int
+          size := len(nums)
 
-	var totalSum int
-	var leftSum int
-	size := len(nums)
+          for i := 0; i < size; i++ {
+                  totalSum += nums[i]
+          }
 
-	for i := 0 ; i < size; i++ {
-		totalSum += nums[i]
-	}
-	
-	for pivot := 0; pivot < size; pivot++ {
-		if leftSum * 2 + nums[pivot] == totalSum {
-			return pivot
-		} else {
-			leftSum += nums[pivot]
-		}
-	}
+          for pivot := 0; pivot < size; pivot++ {
+                  if leftSum*2+nums[pivot] == totalSum {
+                          return pivot
+                  } else {
+                          leftSum += nums[pivot]
+                  }
+          }
 
-	return -1
-
-}
-  
-#+end_src
-
-* 搜索插入位置
-给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
-请必须使用时间复杂度为 O(log n) 的算法。
-
-
-示例 1:
-#+begin_src
-  输入: nums = [1,3,5,6], target = 5
-  输出: 2
-#+end_src
-
-示例 2:
-#+begin_src 
-  输入: nums = [1,3,5,6], target = 2
-  输出: 1
-#+end_src
-
-示例 3:
-#+begin_src 
-  输入: nums = [1,3,5,6], target = 7
-  输出: 4
-#+end_src
- 
-
-提示:
-1 <= nums.length <= 104
--104 <= nums[i] <= 104
-nums 为 无重复元素 的 升序 排列数组
--104 <= target <= 104
-
-链接：https://leetcode.cn/leetbook/read/array-and-string/cxqdh/
-
-
-Code:
-#+begin_src go
-
-  func SearchInsert(nums []int, target int) int {
-	  startIndex := 0
-	  endIndex := len(nums) - 1
-	  var mid int
-	
-	  for ; startIndex <= endIndex; {
-		  mid = startIndex + (endIndex - startIndex) / 2
-
-		  if nums[mid] == target {
-			  return mid
-		  } else if nums[mid] < target {
-			  startIndex = mid + 1
-		  } else {
-			  endIndex = mid - 1
-		  }
-	  }
-
-	  return startIndex
+          return -1
   }
 
 #+end_src
 
-* 合并区间
+链接：https://leetcode.cn/leetbook/read/array-and-string/yf47s/
 
+** 搜索插入位置
+给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+请必须使用时间复杂度为 O(log n) 的算法。
+
+- 示例 1:
+  输入: nums = [1,3,5,6], target = 5
+  输出: 2
+
+- 示例 2:
+  输入: nums = [1,3,5,6], target = 2
+  输出: 1
+
+- 示例 3:
+   输入: nums = [1,3,5,6], target = 7
+   输出: 4
+
+
+- 提示:
+  1 <= nums.length <= 104
+  -104 <= nums[i] <= 104
+  nums 为 无重复元素 的 升序 排列数组
+  -104 <= target <= 104
+
+- 思路
+  二分查询
+  越界分为两种情况：
+   1.中位数大于比较值，如何缩小右边界
+   2.中位数小于比较值，如何缩小左边界
+  终止情况：找到比较值
+
+Code in search_insert.go
+#+begin_src go
+
+  func SearchInsert(nums []int, target int) int {
+          startIndex := 0
+          endIndex := len(nums) - 1
+          var mid int
+
+          for ; startIndex <= endIndex; {
+                  mid = startIndex + (endIndex - startIndex) / 2
+
+                  if nums[mid] == target {
+                          return mid
+                  } else if nums[mid] < target {
+                          startIndex = mid + 1
+                  } else {
+                          endIndex = mid - 1
+                  }
+          }
+
+          return startIndex
+  }
+
+#+end_src
+
+链接：https://leetcode.cn/leetbook/read/array-and-string/cxqdh/
+
+
+** 合并区间
 以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回 一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
 
 示例 1：
@@ -144,95 +142,96 @@ Code:
 intervals[i].length == 2
 0 <= starti <= endi <= 104
 
-链接：https://leetcode.cn/leetbook/read/array-and-string/c5tv3/
 
-Code:
+Code in merge.go
 #+begin_src go
 
   func Merge(intervals [][]int) [][]int {
-	  size := len(intervals)
-	  if size < 2 {
-		  return intervals
-	  }
+          size := len(intervals)
+          if size < 2 {
+                  return intervals
+          }
 
-	  quickSortForMerge(intervals, 0, size-1)
+          quickSortForMerge(intervals, 0, size-1)
 
-	  var uniqueIndex int
-	  uniqueIntervals := make([][]int, size)
-	  uniqueIntervals[0] = intervals[0]
+          var uniqueIndex int
+          uniqueIntervals := make([][]int, size)
+          uniqueIntervals[0] = intervals[0]
 
-	  for i := 1; i < size; i++ {
+          for i := 1; i < size; i++ {
 
-		  if intervals[i-1][1] >= intervals[i][0] {
-			  // range merge
-			  // choose the smaller start range num
-			  intervals[i][0] = intervals[i-1][0]
+                  if intervals[i-1][1] >= intervals[i][0] {
+                          // range merge
+                          // choose the smaller start range num
+                          intervals[i][0] = intervals[i-1][0]
 
-			  // choose the bigger end range num
-			  if intervals[i-1][1] > intervals[i][1]{
-				  intervals[i][1] = intervals[i-1][1]
-			  }
+                          // choose the bigger end range num
+                          if intervals[i-1][1] > intervals[i][1]{
+                                  intervals[i][1] = intervals[i-1][1]
+                          }
 
-			  // update merge range array
-			  uniqueIntervals[uniqueIndex] = intervals[i]
+                          // update merge range array
+                          uniqueIntervals[uniqueIndex] = intervals[i]
 
-			  // look for the next range whether need to be merge
-		  } else {
-			  // stop merge for uniqueIndex and shift next one to keep looking.
-			  uniqueIndex++
-			  uniqueIntervals[uniqueIndex] = intervals[i]
-		  }
-	  }
+                          // look for the next range whether need to be merge
+                  } else {
+                          // stop merge for uniqueIndex and shift next one to keep looking.
+                          uniqueIndex++
+                          uniqueIntervals[uniqueIndex] = intervals[i]
+                  }
+          }
 
-	  return uniqueIntervals[:uniqueIndex+1]
+          return uniqueIntervals[:uniqueIndex+1]
   }
 
   func quickSortForMerge(intervals [][]int, lo, hi int) {
-	  if hi <= lo {
-		  return
-	  }
+          if hi <= lo {
+                  return
+          }
 
-	  pivot := partitionForMerge(intervals, lo, hi)
-	  quickSortForMerge(intervals, lo, pivot-1)
-	  quickSortForMerge(intervals, pivot+1, hi)
+          pivot := partitionForMerge(intervals, lo, hi)
+          quickSortForMerge(intervals, lo, pivot-1)
+          quickSortForMerge(intervals, pivot+1, hi)
   }
 
   // partition according the start value in range
   func partitionForMerge(arr [][]int, lo, hi int) int {
-	  cmpValue := arr[lo][0]
+          cmpValue := arr[lo][0]
 
-	  i, j := lo, hi+1
+          i, j := lo, hi+1
 
-	  for {
-		  for i++; arr[i][0] < cmpValue; i++ {
-			  if i == hi {
-				  break
-			  }
-		  }
+          for {
+                  for i++; arr[i][0] < cmpValue; i++ {
+                          if i == hi {
+                                  break
+                          }
+                  }
 
-		  for j--; arr[j][0] > cmpValue; j-- {
-			  if j == lo {
-				  break
-			  }
-		  }
+                  for j--; arr[j][0] > cmpValue; j-- {
+                          if j == lo {
+                                  break
+                          }
+                  }
 
-		  if i >= j {
-			  break
-		  }
+                  if i >= j {
+                          break
+                  }
 
-		  //exchange value of index i, j
-		  arr[i], arr[j] = arr[j], arr[i]
+                  //exchange value of index i, j
+                  arr[i], arr[j] = arr[j], arr[i]
 
-	  }
+          }
 
-	  //exchange cmpValue with value of index j
-	  arr[lo], arr[j] = arr[j], arr[lo]
+          //exchange cmpValue with value of index j
+          arr[lo], arr[j] = arr[j], arr[lo]
 
-	  return j
+          return j
   }
 
 
 #+end_src
+
+链接：https://leetcode.cn/leetbook/read/array-and-string/c5tv3/
 
 思路：
 1. 关于区间的合并，必须对区间的闭合的起始点与结束点进行比对
@@ -247,40 +246,39 @@ Code:
   ex. [1, 5] [2, 6]
 
 * 旋转矩阵
-
 给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。请你设计一种算法，将图像旋转 90 度。
 不占用额外内存空间能否做到？
 
 示例 1:
 给定 matrix = 
 [
-  [1,2,3],
-  [4,5,6],
-  [7,8,9]
+[1,2,3],
+[4,5,6],
+[7,8,9]
 ],
 
 原地旋转输入矩阵，使其变为:
 [
-  [7,4,1],
-  [8,5,2],
-  [9,6,3]
+[7,4,1],
+[8,5,2],
+[9,6,3]
 ]
 
 示例 2:
 给定 matrix =
 [
-  [ 5, 1, 9,11],
-  [ 2, 4, 8,10],
-  [13, 3, 6, 7],
-  [15,14,12,16]
+[ 5, 1, 9,11],
+[ 2, 4, 8,10],
+[13, 3, 6, 7],
+[15,14,12,16]
 ], 
 
 原地旋转输入矩阵，使其变为:
 [
-  [15,13, 2, 5],
-  [14, 3, 4, 1],
-  [12, 6, 8, 9],
-  [16, 7,10,11]
+[15,13, 2, 5],
+[14, 3, 4, 1],
+[12, 6, 8, 9],
+[16, 7,10,11]
 ]
 
 链接：https://leetcode.cn/leetbook/read/array-and-string/clpgd/
@@ -289,30 +287,30 @@ Code:
 #+begin_src go
   func Rotate(matrix [][]int) {
 
-	  // rotate first dimension arrays
-	  size := len(matrix) - 1
-	  lo, hi := 0, size
+          // rotate first dimension arrays
+          size := len(matrix) - 1
+          lo, hi := 0, size
 
-	  for lo < hi {
-		  matrix[lo], matrix[hi] = matrix[hi], matrix[lo]
+          for lo < hi {
+                  matrix[lo], matrix[hi] = matrix[hi], matrix[lo]
 
-		  lo++
-		  hi--
-	  }
+                  lo++
+                  hi--
+          }
 
-	  // rotate diagonal elements
-	  var i, j int
-	  for i <= size {
+          // rotate diagonal elements
+          var i, j int
+          for i <= size {
 
-		  j = i + 1
-		  for j <= size {
-			  matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+                  j = i + 1
+                  for j <= size {
+                          matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
-			  j++
-		  }
+                          j++
+                  }
 
-		  i++
-	  }
+                  i++
+          }
   }
 
 
