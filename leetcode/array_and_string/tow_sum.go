@@ -1,8 +1,9 @@
 package array_and_string
 
-//time: O(n)
+//time:  O(n)
 //space: O(1)
-//TwoSum ...
+//前提:   numbers是有序数组
+//TwoSum
 func TwoSum(numbers []int, target int) []int {
 	l, r := 0, len(numbers)-1
 	if len(numbers) > 2 {
@@ -26,8 +27,9 @@ func TwoSum(numbers []int, target int) []int {
 	return numbers[:2]
 }
 
-//time: O(lg(n))
+//time:  O(lg(n))
 //space: O(1)
+//前提:   numbers是有序数组
 //BinarySearchTwoSum 在TowSum 原基础上，通过二分查询来快速节省不必要的匹配
 func BinarySearchTwoSum(numbers []int, target int) []int {
 

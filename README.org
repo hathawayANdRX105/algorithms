@@ -1,7 +1,12 @@
+#+TITLE: Algorithms
+#+AUTHOR: hathawayANdRX105
+#+EMAIL: 2635254302@qq.com
+#+STARTUP: indent
 #+OPTIONS: ^:nil
+#+OPTIONS: \n:t
 * introduction
 this repository is used for learning algorithms.
 It contains three main directories where i code there.
 - leetcode mainly contains the solved codes of algorithms problem. 
-- intro\_algorithms contains the solved codes for the book.
+- intro_algorithms contains the solved codes for the book.
 - pkg is my basement util library.
