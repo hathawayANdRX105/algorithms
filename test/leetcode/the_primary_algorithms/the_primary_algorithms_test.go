@@ -215,23 +215,40 @@ func TestCountAndSay(t *testing.T) {
 	result := the_primary_algorithms.CountAndSay(n)
 
 	t.Logf("result string:%s", result)
+}
 
-	// var buffer bytes.Buffer
+func TestMergeTwoLists(t *testing.T) {
+	l1 := &the_primary_algorithms.ListNode{Val: 1}
+	l1.Next = &the_primary_algorithms.ListNode{Val: 1}
+	l1.Next.Next = &the_primary_algorithms.ListNode{Val: 2}
 
-	// buffer.WriteByte('1')
-	// buffer.WriteByte('1')
-	// t.Log(string(buffer.Bytes()))
-	// buffer.Reset()
+	l2 := &the_primary_algorithms.ListNode{Val: 1}
+	l2.Next = &the_primary_algorithms.ListNode{Val: 2}
+	l2.Next.Next = &the_primary_algorithms.ListNode{Val: 3}
 
-	// t.Log(buffer.Bytes())
-	// buffer.WriteByte('2')
-	// buffer.WriteByte('1')
-	// t.Log(buffer.Bytes())
-	// t.Log(string(buffer.Bytes()))
-	// buffer.Reset()
+	mergeList := the_primary_algorithms.MergeTwoLists(l1, l2)
 
-	// buffer.WriteByte('3')
-	// buffer.WriteByte('1')
-	// t.Log(string(buffer.Bytes()))
+	for mergeList != nil {
+		t.Logf("%v --- ", mergeList.Val)
+	}
+}
 
+func TestIsPalindromeLists(t *testing.T) {
+	// container := []int{1, 2, 2, 1}
+	// container := []int{1, 2, 3, 2, 1}
+	// container := []int{1, 1, 0, 1}
+	// container := []int{1, 0, 1, 1}
+	container := []int{7, 0, 8, 5, 6, 5, 7, 9, 2, 4, 1, 2, 8, 3, 9, 6, 6, 0, 8, 6, 9, 5, 7, 4, 1, 0}
+	
+	head := &the_primary_algorithms.ListNode{}
+	p := head
+
+	for _, v := range container {
+		p.Next = &the_primary_algorithms.ListNode{Val: v}
+		p = p.Next
+	}
+
+	result := the_primary_algorithms.IsPalindromeLists(head.Next)
+
+	t.Logf("result:%v\n", result)
 }

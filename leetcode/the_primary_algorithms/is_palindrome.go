@@ -1,5 +1,9 @@
 package the_primary_algorithms
 
+import (
+	"fmt"
+)
+
 func isNumberOrLetter(char byte) bool {
 	// ascii:
 	//  数字： 48~57
@@ -22,6 +26,7 @@ func isEqual(char1 byte, char2 byte) bool {
 	return false
 }
 
+// IsPalindrome 检查字符串是否为回文字符串
 func IsPalindrome(s string) bool {
 
 	l, r := 0, len(s)-1
@@ -48,4 +53,25 @@ func IsPalindrome(s string) bool {
 	}
 
 	return true
+}
+
+// IsPalindromeLists 针对链表检查是否为回文链表
+func IsPalindromeLists(head *ListNode) bool {
+	var hash1, hash2 int
+	x, multiple := 2, 1
+
+	// 按照x进制，换算组合，从前往后的正序与反序，参考10进制
+	// [1, 2, 2, 1] 10进制为 (正序)1221 (反序)1221
+	//               4进制为 (正序)105  (反序)105
+	for head != nil {
+		hash1 = hash1*x + head.Val
+		hash2 = hash2 + head.Val*multiple
+
+		multiple *= x
+
+		head = head.Next
+	}
+
+	fmt.Println(hash1, hash2)
+	return hash1 == hash2
 }
