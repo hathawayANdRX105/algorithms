@@ -1,9 +1,42 @@
 package array_and_string
 
-import (
-	"fmt"
-)
+import "fmt"
 
+// 1.LongestCommonPrefix 寻找字符串数组中每个字符串的最长公共前缀
+func LongestCommonPrefix(strs []string) string {
+
+	result := strs[0]
+	var commonIndex int
+	for commonIndex < len(strs[0]) {
+
+		// check the single letter whether are queal for each word
+		var i int
+		for ; i < len(strs); i++ {
+
+			// if current word contains non-letter and the letter of commonIndex isn't equal to previous word letter of commonIndex then stop.
+			// case1: 保证第一个字符串的遍历指针在其他字符串的遍历范围内
+			// case2: 统计其他字符串在相同位置是否为同一个字符
+			if commonIndex >= len(strs[i]) || result[commonIndex] != strs[i][commonIndex] {
+				break
+			}
+		}
+
+		// only if iterate all word then commonIndex plus 1.
+		// 判断统计
+		if i == len(strs) {
+			commonIndex++
+		} else {
+			break
+		}
+
+	}
+
+	return result[:commonIndex]
+}
+
+
+// 2.LongestPalindrome 最长回文字串
+//  包含动态规划，动态规划内存优化，马拉夫算法实现
 // dp solved
 // time:  O(n^2)
 // space: O(n^2)
@@ -193,7 +226,7 @@ func LongestPalindromeWithManacher(s string) string {
 			p[i] = 0
 		}
 
-		// 中心拓展
+		// 中心拓展, 比对
 		for T[i-p[i]-1] == T[i+p[i]+1] {
 			p[i] += 1
 		}
@@ -214,4 +247,95 @@ func LongestPalindromeWithManacher(s string) string {
 
 	startIndex := (startCenter - maxLen) / 2
 	return s[startIndex : startIndex+maxLen]
+}
+
+// 3.ReverseWords1 翻转字符串里的单词,保持单词顺序不变
+func ReverseWords1(s string) string {
+	stack := make([]string, len(s), len(s))
+
+	var size int
+	var i, j int
+
+	for {
+		// find next word where strat
+		// pass by white space ' ' and find the index of word start
+		for i = j; i < len(s) && s[i] == ' '; {
+			i++
+		}
+
+		// find out the index of word end
+		for j = i; j < len(s) && s[j] != ' '; {
+			j++
+		}
+
+		if i < j {
+			// push stack
+			stack[size] = s[i:j]
+			size++
+
+		}
+
+		if j >= len(s) {
+			break
+		}
+
+	}
+
+	// // add last word
+	// stack[size] = s[i:j]
+	// size++
+
+	result := ""
+	// pop word and concat
+	for i := size - 1; 0 <= i; i-- {
+		result += stack[i] + " "
+	}
+
+	return result[:len(result)-1]
+}
+
+
+
+// buildNext ...
+func buildNext(pattern string) []int {
+	next := make([]int, len(pattern))
+	next[0] = -1
+
+	for i, j := 1, 0; i < len(pattern)-1; {
+		if j < 0 || pattern[i] == pattern[j] {
+			i++
+			j++
+
+			next[i] = j
+		} else {
+			j = next[j]
+		}
+	}
+
+	return next
+}
+
+// 4.strStr 参考 intro_algorithms 第三十二章的kmp实现, 内有详细代码注释
+func StrStr(haystack string, needle string) int {
+	if len(needle) == 0 {
+		return 0
+	}
+
+	next := buildNext(needle)
+
+	var t, p int
+	for t < len(haystack) {
+		if p < 0 || haystack[t] == needle[p] {
+			p++
+			t++
+		} else {
+			p = next[p]
+		}
+
+		if p == len(needle) {
+			return t - p
+		}
+	}
+
+	return -1
 }
