@@ -239,7 +239,7 @@ func TestIsPalindromeLists(t *testing.T) {
 	// container := []int{1, 1, 0, 1}
 	// container := []int{1, 0, 1, 1}
 	container := []int{7, 0, 8, 5, 6, 5, 7, 9, 2, 4, 1, 2, 8, 3, 9, 6, 6, 0, 8, 6, 9, 5, 7, 4, 1, 0}
-	
+
 	head := &the_primary_algorithms.ListNode{}
 	p := head
 
@@ -251,4 +251,35 @@ func TestIsPalindromeLists(t *testing.T) {
 	result := the_primary_algorithms.IsPalindromeLists(head.Next)
 
 	t.Logf("result:%v\n", result)
+}
+
+func TestMerge1(t *testing.T) {
+	// nums1 := []int{1, 2, 3, 0, 0, 0}
+	// nums2 := []int{1, 1, 2}
+	// m, n := 3, 3
+	
+	// nums1 := []int{1, 7, 0, 0, 0, 0, 0}
+	// nums2 := []int{1, 1, 2, 3, 5}
+	// m, n := 2, 5
+	
+	nums1 := []int{4, 5, 6, 0, 0, 0}
+	nums2 := []int{1, 2, 3}
+	m, n := 3, 3
+
+	
+	// nums1 := []int{1, 2, 4, 5, 6, 0}
+	// nums2 := []int{3}
+	// m, n := 5, 1
+
+	// nums1 := []int{0}
+	// nums2 := []int{1}
+	// m, n := 0, 1
+
+	// nums1 := []int{1}
+	// nums2 := []int{}
+	// m, n := 1, 0
+	
+	the_primary_algorithms.Merge(nums1, m, nums2, n)
+
+	t.Logf("result:%v\n", nums1)
 }
