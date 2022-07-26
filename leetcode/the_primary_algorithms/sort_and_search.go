@@ -28,7 +28,7 @@ func Merge(nums1 []int, m int, nums2 []int, n int) {
  *			          false if current version is good
  * func isBadVersion(version int) bool;
  */
-func isBadVersion(version int) bool
+func isBadVersion(version int) bool { return false }
 
 // 2.firstBadVersion 寻找第一个错误版本，已经提供检查检查版本是否出问题的api
 func firstBadVersion(n int) int {

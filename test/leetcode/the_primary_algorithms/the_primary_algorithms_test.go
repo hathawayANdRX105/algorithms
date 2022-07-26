@@ -257,16 +257,15 @@ func TestMerge1(t *testing.T) {
 	// nums1 := []int{1, 2, 3, 0, 0, 0}
 	// nums2 := []int{1, 1, 2}
 	// m, n := 3, 3
-	
+
 	// nums1 := []int{1, 7, 0, 0, 0, 0, 0}
 	// nums2 := []int{1, 1, 2, 3, 5}
 	// m, n := 2, 5
-	
+
 	nums1 := []int{4, 5, 6, 0, 0, 0}
 	nums2 := []int{1, 2, 3}
 	m, n := 3, 3
 
-	
 	// nums1 := []int{1, 2, 4, 5, 6, 0}
 	// nums2 := []int{3}
 	// m, n := 5, 1
@@ -278,8 +277,47 @@ func TestMerge1(t *testing.T) {
 	// nums1 := []int{1}
 	// nums2 := []int{}
 	// m, n := 1, 0
-	
+
 	the_primary_algorithms.Merge(nums1, m, nums2, n)
 
 	t.Logf("result:%v\n", nums1)
+}
+
+func TestArrAppend(t *testing.T) {
+	arr := []int{1, 2, 3}
+
+	arr = append(arr, make([]int, 9)...)
+
+	t.Logf("length:%v, cap:%v, arr:%v", len(arr), cap(arr), arr)
+}
+
+func TestCountPrimes(t *testing.T) {
+
+	n := 100
+	ans := the_primary_algorithms.CountPrimes(n)
+
+	t.Logf("prime count:%v\n", ans)
+}
+
+func TestIsPowerOfThree(t *testing.T) {
+	// n := 99
+	// x := math.Log10(float64(n)) / math.Log10(3.)
+
+	// y := float64(int32(x))
+
+	// t.Log(x, int32(x), y, x-y)
+
+	n := 9
+	result := the_primary_algorithms.IsPowerOfThree(n)
+
+	t.Logf("is this the power of three:%v\n", result)
+}
+
+func TestRomanToInt(t *testing.T) {
+	// s1 := "III"
+	s1 := "XXIX"
+
+	num := the_primary_algorithms.RomanToInt(s1)
+
+	t.Logf("translate to int:%v\n", num)
 }
