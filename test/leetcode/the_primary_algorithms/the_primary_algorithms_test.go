@@ -321,3 +321,32 @@ func TestRomanToInt(t *testing.T) {
 
 	t.Logf("translate to int:%v\n", num)
 }
+
+func TestHammingWeight(t *testing.T) {
+	var num uint32 = 2048
+
+	result := the_primary_algorithms.HammingWeight(num)
+
+	t.Logf("%v\n", result)
+}
+
+func TestHammingDistance(t *testing.T) {
+	n1, n2 := 77, 1
+
+	t.Log(n1^n2, n1|n2, n1&n2)
+}
+
+func TestIsValid(t *testing.T) {
+	arr := []int{40, 41, 91, 93, 123, 125}
+
+	modNum := 3
+
+	t.Logf("mod num :%v\n", modNum)
+	for i, v := range arr {
+		t.Logf("%v -- %v \t", v, v%modNum)
+
+		if (i+1)%2 == 0 {
+			t.Log()
+		}
+	}
+}
