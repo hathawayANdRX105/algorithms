@@ -1,7 +1,9 @@
-package sort_test
+package generic_sort_test
 
 import (
 	"algorithms/intro_algorithms/cp02"
+	"algorithms/intro_algorithms/cp06"
+	"algorithms/pkg/generic_sort"
 	"fmt"
 	"testing"
 )
@@ -24,7 +26,7 @@ func TestValidSequence(t *testing.T) {
 		a[i] = i
 	}
 
-	fmt.Printf("result: %v\n", cp02.ValidSequence(a, cp02.Compare(true)))
+	t.Logf("result: %v\n", cp02.ValidSequence(a, cp02.Compare(true)))
 }
 
 func TestSelect(t *testing.T) {
@@ -43,4 +45,46 @@ func TestExchange(t *testing.T) {
 
 func TestMerge(t *testing.T) {
 	cp02.TestSort(true, 200, 100, cp02.MergeSort)
+}
+
+// TestPointerExchange 尝试寻找 利用指针交换两个值，如果交换值还存在细粒度的操作，需要提供操作空间
+func TestPointerExchange(t *testing.T) {
+
+	exchange := func(i, j *any) (any, any) {
+		// inside here can do some atomic operations.
+		return *j, *i
+	}
+
+	tempArr := []any{1, 2, 3, 4, 5, 6}
+
+	t.Logf("%T, %v", tempArr, tempArr)
+	tempArr[0], tempArr[len(tempArr)-1] = exchange(&tempArr[0], &tempArr[len(tempArr)-1])
+	t.Logf("%T, %v", tempArr, tempArr)
+}
+
+func TestComparator(t *testing.T) {
+
+	// t.Log("abc" < "abb")
+	c := &generic_sort.NumberComparator[byte]{}
+
+	tempArr := []byte{120, 100}
+	t.Log(c)
+	t.Log(c.IsLess(&tempArr[0], &tempArr[1]))
+	t.Log(c.IsEqual(tempArr[0], tempArr[1]))
+	t.Log(c.Swap(&tempArr[0], &tempArr[1]))
+
+}
+
+func TestHeapSort(t *testing.T) {
+	// var comparator generic_sort.Comparator[byte]
+	// comparator = &generic_sort.NumberComparator[byte]{}
+	// arr := []byte{3, 4, 1, 2, 5, 7, 10}
+
+	var comparator generic_sort.Comparator[float32]
+	comparator = &generic_sort.NumberComparator[float32]{}
+	arr := []float32{3.3, 1.3, 4, 5.8, 10, 9, 2.2}
+
+	sortedArr := cp06.HeapSort(arr, comparator)
+
+	t.Log(sortedArr)
 }

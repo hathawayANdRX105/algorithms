@@ -21,7 +21,7 @@ func TestPivotIndex2(t *testing.T) {
 	// nums := []int {1, 2, 3}
 	// nums := []int {2, 1, -1}
 	nums := []int{-1, -1, 0, 1, 1, 0}
-
+	
 	result := array_and_string.PivotIndex2(nums)
 
 	t.Logf("result: %v\n", result)

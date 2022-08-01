@@ -11,7 +11,6 @@ func TestMaxProfit(t *testing.T) {
 	maxPrices := the_primary_algorithms.MaxProfit(prices)
 
 	t.Logf("max prices :%v\n", maxPrices)
-
 }
 
 // test rotate1,2

@@ -1,13 +1,10 @@
-package sort
+package generic_sort
 
 import (
 	"math/rand"
 	"time"
 )
 
-type QuickSort struct {
-	
-}
 
 
 // partition ...

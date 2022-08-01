@@ -1,7 +1,7 @@
 package array_and_string
 
 import (
-	"algorithms/pkg/sort"
+	"algorithms/pkg/generic_sort"
 	"math"
 )
 
@@ -22,7 +22,7 @@ func ReverseString(s []byte) {
 // 2.ArrayPairSum 使用了 快速3切分排序算法
 // 数组拆分I
 func ArrayPairSum(nums []int) int {
-	sort.QuickSortBy3Way(nums)
+	generic_sort.QuickSortBy3Way(nums)
 
 	var sum int
 	for i := 0; i < len(nums); i += 2 {

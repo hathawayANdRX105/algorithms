@@ -2,7 +2,6 @@ package the_primary_algorithms
 
 import (
 	"container/list"
-	"fmt"
 	"math"
 )
 
