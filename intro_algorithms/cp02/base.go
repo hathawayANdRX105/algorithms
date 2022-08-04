@@ -8,8 +8,7 @@ import (
 )
 
 func init() {
-	seed := time.Now().UnixNano()
-	rand.Seed(seed)
+	rand.Seed(time.Now().UnixNano())
 }
 
 // Compare return a func which can decide order by pass a specific value

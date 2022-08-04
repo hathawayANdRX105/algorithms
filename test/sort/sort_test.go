@@ -2,7 +2,6 @@ package generic_sort_test
 
 import (
 	"algorithms/intro_algorithms/cp02"
-	"algorithms/intro_algorithms/cp06"
 	"algorithms/pkg/generic_sort"
 	"fmt"
 	"testing"
@@ -15,7 +14,7 @@ func TestInsert(t *testing.T) {
 	cmp := cp02.Compare(false)
 
 	fmt.Printf("arr: %v\n", arr)
-	result := cp02.Insert_sort(arr, cmp)
+	result := cp02.InsertSort(arr, cmp)
 
 	fmt.Printf("result: %v\n", result)
 }
@@ -30,7 +29,7 @@ func TestValidSequence(t *testing.T) {
 }
 
 func TestSelect(t *testing.T) {
-	cp02.TestSort(true, 30, 100, cp02.Select_sort)
+	cp02.TestSort(true, 30, 100, cp02.SelectSort)
 }
 
 func TestExchange(t *testing.T) {
@@ -75,16 +74,3 @@ func TestComparator(t *testing.T) {
 
 }
 
-func TestHeapSort(t *testing.T) {
-	// var comparator generic_sort.Comparator[byte]
-	// comparator = &generic_sort.NumberComparator[byte]{}
-	// arr := []byte{3, 4, 1, 2, 5, 7, 10}
-
-	var comparator generic_sort.Comparator[float32]
-	comparator = &generic_sort.NumberComparator[float32]{}
-	arr := []float32{3.3, 1.3, 4, 5.8, 10, 9, 2.2}
-
-	sortedArr := cp06.HeapSort(arr, comparator)
-
-	t.Log(sortedArr)
-}

@@ -1,7 +1,7 @@
 package cp02
 
-// sustain a sequence array from start to end
-func Insert_sort(arr []int, cmp func(o1, o2 int) bool) []int {
+// InsertSort sustain a sequence array from start to end
+func InsertSort(arr []int, cmp func(o1, o2 int) bool) []int {
 	length := len(arr)
 	if length < 2 {
 		return arr
@@ -22,8 +22,8 @@ func Insert_sort(arr []int, cmp func(o1, o2 int) bool) []int {
 	return arr
 }
 
-// select min/max num from sub array to insert into squence order
-func Select_sort(arr []int, cmp func(o1, o2 int) bool) []int {
+// SelectSort min/max num from sub array to insert into squence order
+func SelectSort(arr []int, cmp func(o1, o2 int) bool) []int {
 	length := len(arr)
 	if length < 2 {
 		return arr
