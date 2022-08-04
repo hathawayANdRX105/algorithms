@@ -49,3 +49,10 @@ func TestQuickSortBy3Way(t *testing.T) {
 	fmt.Printf("after sort: %v\n", tempArr)
 
 }
+
+func TestIndex(t *testing.T) {
+	tempArr := []int{1, 2, 3}
+
+	t.Log(tempArr[-1])
+
+}
