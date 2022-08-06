@@ -85,10 +85,11 @@ func gcd(m, n rune) rune {
 
 func fractionAddition(expression string) string {
 	// 添加终结符
-	expression += "+"
+	expression = fmt.Sprintf("%v+", expression)
+
 	// 初始化 '+'，提前处理
 	if expression[0] != '-' {
-		expression = "+" + expression
+		expression = fmt.Sprintf("+%v", expression)
 	}
 
 	// ex: b/a +- d/c
@@ -149,4 +150,51 @@ func fractionAddition(expression string) string {
 
 	// 按形式返回
 	return fmt.Sprintf("%v/%v", singal*mole, deno)
+}
+
+
+// 4.addOneRow
+// Done at <2022-08-05 周五>
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func addSpecifedDepthNode(node *TreeNode, val int, depth int) *TreeNode {
+	if node == nil {
+		return node
+	}
+
+	// 当深度为2时，只需要添加相应子树方向的节点，存放值为val
+	if depth == 2 {
+		node.Left  = &TreeNode{Val: val, Left: node.Left}
+		node.Right = &TreeNode{Val: val, Right: node.Right}
+
+		return node
+	}
+
+	node.Left = addSpecifedDepthNode(node.Left, val, depth-1)
+	node.Right = addSpecifedDepthNode(node.Right, val, depth-1)
+
+	return node
+
+}
+
+func addOneRow(root *TreeNode, val int, depth int) *TreeNode {
+	if depth == 1 {
+		// 当深度为1时，需要将当前根节点存放在值为val的根节点的左子树中
+		return &TreeNode{Val: val, Left: root}
+	}
+
+	return addSpecifedDepthNode(root, val, depth)
 }
