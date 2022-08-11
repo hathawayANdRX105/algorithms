@@ -1,11 +1,7 @@
 package intermediate_algorithms
 
 import (
-	"fmt"
 	"math"
-	"net"
-	"net/mail"
-	"sort"
 )
 
 // 1.canJump 跳跃游戏
@@ -129,7 +125,7 @@ func lengthOfLIS1(nums []int) int {
 		for l < r {
 			m := l + (r-l+1)>>1
 
-			// 左靠右保
+			// 左靠右保 与中值无关（？）
 			if dp[m] < nums[i] {
 				l = m + 1
 			} else {

@@ -53,6 +53,9 @@ func TestQuickSortBy3Way(t *testing.T) {
 func TestIndex(t *testing.T) {
 	tempArr := []int{1, 2, 3}
 
-	t.Log(tempArr[-1])
+	// tempArr[-1] is valid.
+	t.Log(tempArr[1])
+
+	t.Log()
 
 }
