@@ -1,7 +1,5 @@
 package intermediate_algorithms
 
-import "fmt"
-
 // 以下是 intermediate_algorithms 关于 backtracking_algorithms 的代码实现
 
 var digitAlphabet [][]byte = [][]byte{
