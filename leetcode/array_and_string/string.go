@@ -34,9 +34,10 @@ func LongestCommonPrefix(strs []string) string {
 	return result[:commonIndex]
 }
 
-
 // 2.LongestPalindrome 最长回文字串
-//  包含动态规划，动态规划内存优化，马拉夫算法实现
+//
+//	包含动态规划，动态规划内存优化，马拉夫算法实现
+//
 // dp solved
 // time:  O(n^2)
 // space: O(n^2)
@@ -83,12 +84,9 @@ func LongestPalindrome1(s string) string {
 			}
 		}
 	}
-	
 
 	return s[beginIndex : beginIndex+maxLen]
 }
-
-
 
 // dp
 // time:  O(n^2)
@@ -207,14 +205,18 @@ func LongestPalindromeWithManacher(s string) string {
 	T := preProcess(s)       // 字符间隔插入#
 	p := make([]int, len(T)) //记录字符回文的长度
 
+	// C 代表记录的回文中心索引， R 代表 某次回文的中心+半径的右边界索引, R-C 代表按 C为中心的回文半径
 	var C, R int
-	var startCenter, maxLen int
+	var startCenter, maxLen int // startCenter 用于记录最大回文字符串长度的中心； maxLen 用于记录最大回文字符串长度
 	for i := 1; i < len(p)-1; i++ {
 
+		// cond 1：R > i， 则可以利用已有的 以 C为中心，半径 R-C 的回文字符串的另一半进行加速匹配回文
 		if R > i {
 			i_mirror := 2*C - i
 
 			// 取最小
+			// R-i > p[i_mirror] 说明 对称点的半径小于当前回文半径，则可以直接利用
+			// 否则取到R-i 长度，后续进行中心拓展匹配
 			if R-i > p[i_mirror] {
 				p[i] = p[i_mirror]
 			} else {
@@ -227,6 +229,7 @@ func LongestPalindromeWithManacher(s string) string {
 		}
 
 		// 中心拓展, 比对
+		// 利用已有的回文获取省略不必要的匹配，按 当前 i为中心，进行中心拓展匹配回文
 		for T[i-p[i]-1] == T[i+p[i]+1] {
 			p[i] += 1
 		}
@@ -237,7 +240,7 @@ func LongestPalindromeWithManacher(s string) string {
 			maxLen = p[i]
 		}
 
-		// 更新超过当前R长度的 中心点
+		// 更新超过当前右边界R索引的 中心点
 		if i+p[i] > R {
 			C = i
 			R = i + p[i]
@@ -245,6 +248,8 @@ func LongestPalindromeWithManacher(s string) string {
 
 	}
 
+	// 利用最长回文中心点以及长度，获取最长回文
+	// 由于对原字符进行拓展#，索引为i*2， 半径长度为同样扩大2倍相当于回文的长度
 	startIndex := (startCenter - maxLen) / 2
 	return s[startIndex : startIndex+maxLen]
 }
@@ -293,8 +298,6 @@ func ReverseWords1(s string) string {
 
 	return result[:len(result)-1]
 }
-
-
 
 // buildNext ...
 func buildNext(pattern string) []int {

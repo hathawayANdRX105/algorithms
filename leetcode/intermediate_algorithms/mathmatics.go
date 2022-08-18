@@ -1,7 +1,6 @@
 package intermediate_algorithms
 
 import (
-	"fmt"
 	"math"
 	"strconv"
 )
