@@ -20,3 +20,9 @@ func TestSlice(t *testing.T) {
 	ex1 = ex1[1:]
 	t.Log(ex1)
 }
+
+func TestStrNum(t *testing.T) {
+	n1 := "2"
+
+	t.Log(n1[0] - '0')
+}
