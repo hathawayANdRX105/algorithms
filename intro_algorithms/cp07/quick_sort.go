@@ -12,7 +12,7 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
-// partirion ...
+// partirion 比较值为 arr[rear]
 func partition(arr []int, pre, rear int) int {
 	// arr[pre, i] 维护 小于等于 arr[rear]的值
 	// arr[i+1, j] 维护 大于 arr[rear] 的值
@@ -28,7 +28,7 @@ func partition(arr []int, pre, rear int) int {
 
 	// 交换arr[i+1]与arr[rear]
 	arr[i+1], arr[rear] = arr[rear], arr[i+1]
-	
+
 	return i + 1
 }
 

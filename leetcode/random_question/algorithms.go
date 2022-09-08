@@ -152,7 +152,6 @@ func fractionAddition(expression string) string {
 	return fmt.Sprintf("%v/%v", singal*mole, deno)
 }
 
-
 // 4.addOneRow
 // Done at <2022-08-05 周五>
 /**
@@ -177,7 +176,7 @@ func addSpecifedDepthNode(node *TreeNode, val int, depth int) *TreeNode {
 
 	// 当深度为2时，只需要添加相应子树方向的节点，存放值为val
 	if depth == 2 {
-		node.Left  = &TreeNode{Val: val, Left: node.Left}
+		node.Left = &TreeNode{Val: val, Left: node.Left}
 		node.Right = &TreeNode{Val: val, Right: node.Right}
 
 		return node
@@ -197,4 +196,107 @@ func addOneRow(root *TreeNode, val int, depth int) *TreeNode {
 	}
 
 	return addSpecifedDepthNode(root, val, depth)
+}
+
+// 1470.shuffle 重新排列数组
+// Dont at <2022-08-29 周一>
+func shuffle(nums []int, n int) []int {
+	ans := make([]int, len(nums))
+
+	for i := 0; i < n; i++ {
+		ans[i*2], ans[i*2+1] = nums[i], nums[n+i]
+	}
+
+	return ans
+}
+
+// 1475.finalPrices商品折扣后的最终价格
+func finalPrices(prices []int) []int {
+	st := []int{0}
+	var p int
+	ans := make([]int, len(prices))
+
+	for i := len(prices) - 1; -1 < i; i-- {
+
+		// 利用栈记录可能小于当前值的元素，并且是倒叙压栈，下标为最小下标
+		for p > -1 {
+			if st[p] <= prices[i] {
+				// 找到最近下标小于当前值的元素，则进行折扣计算，并且退出
+				ans[i] = prices[i] - st[p]
+				break
+			}
+			st = st[:p]
+			p--
+		}
+
+		// 压栈，每个可能的元素
+		st = append(st, prices[i])
+		p++
+	}
+
+	return ans
+}
+
+// 687.longestUnivaluePath 最长同路径
+// Done at <2022-09-02 周五>
+func longestUnivaluePath(root *TreeNode) int {
+
+	// 通过dfs ， 自底向上寻找可能的最长单边， l + r 比较最长边可以同样作用于单边最长
+	var maxLen int
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+
+		var l, r int
+		sl := dfs(node.Left)
+		sr := dfs(node.Right)
+
+		if node.Left != nil && node.Left.Val == node.Val {
+			l = sl + 1
+		}
+
+		if node.Right != nil && node.Right.Val == node.Val {
+			r = sr + 1
+		}
+
+		// 左右子树边连接情况 以及 单边最长
+		if l+r > maxLen {
+			maxLen = l + r
+		}
+
+		if r > l {
+			l = r
+		}
+
+		return l
+	}
+
+	dfs(root)
+	return maxLen
+}
+
+// 646.findLongestChain 最长数对链
+// Done at <2022-09-03 周六>
+// (a, b) < (c, d)
+func findLongestChain(pairs [][]int) int {
+	if len(pairs) < 2 {
+		return 1
+	}
+
+	// 选择 后一位进行排序
+	// 要挑选最长数对链的第一个数对时，最优的选择是挑选第二个数字最小的，这样能给挑选后续的数对留下更多的空间。
+	sort.Slice(pairs, func(i, j int) bool { return pairs[i][1] < pairs[j][1] })
+
+	// 跳过第一个
+	count := 1
+	end := pairs[0][1]
+	for i := 1; i < len(pairs); i++ {
+		if end < pairs[i][0] {
+			end = pairs[i][1]
+			count++
+		}
+	}
+	return count
 }

@@ -46,8 +46,6 @@ func HeapSort[T generic_sort.Number](element []T, comparator generic_sort.Compar
 	size := len(element)
 	array := element
 
-	fmt.Println(size, array)
-
 	// build heap 从下往上，从非叶子节点构建最大堆
 	for i := size / 2; 0 <= i; i-- {
 		sink(i, size, array, comparator)

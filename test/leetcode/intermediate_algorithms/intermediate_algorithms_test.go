@@ -25,4 +25,5 @@ func TestStrNum(t *testing.T) {
 	n1 := "2"
 
 	t.Log(n1[0] - '0')
+
 }

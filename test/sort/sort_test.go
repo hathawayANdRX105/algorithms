@@ -71,6 +71,4 @@ func TestComparator(t *testing.T) {
 	t.Log(c.IsLess(&tempArr[0], &tempArr[1]))
 	t.Log(c.IsEqual(tempArr[0], tempArr[1]))
 	t.Log(c.Swap(&tempArr[0], &tempArr[1]))
-
 }
-

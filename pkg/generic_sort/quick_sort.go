@@ -5,8 +5,6 @@ import (
 	"time"
 )
 
-
-
 // partition ...
 func partition(arr []int, lo, hi int) int {
 	cmpValue := arr[lo]
@@ -33,12 +31,11 @@ func partition(arr []int, lo, hi int) int {
 		//exchange value of index i, j
 		arr[i], arr[j] = arr[j], arr[i]
 
-		
 	}
 
 	//exchange cmpValue with value of index j
 	arr[lo], arr[j] = arr[j], arr[lo]
-	
+
 	return j
 }
 
@@ -62,7 +59,7 @@ func QuickSortByPartition(arr []int) {
 	})
 
 	quickSort(arr, 0, len(arr)-1)
-	
+
 }
 
 // quick3Way ...

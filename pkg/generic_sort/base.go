@@ -22,7 +22,6 @@ type Number interface {
 }
 
 type NumberComparator[T Number] struct {
-	Comparator[T]
 	orderFlag bool // if orderFlag is true , then use *i > *j, else *i < *j
 }
 

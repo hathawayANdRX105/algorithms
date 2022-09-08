@@ -29,10 +29,10 @@ func TestFindMaxSubArray(t *testing.T) {
 	arr := []int{ -20, -33, -16, -5, -1, -10, -48 }
 	length := len(arr) - 1
 	begin, end, sum := cp04.FindMaxSubArray(arr)
-	low, high, sum := cp04.FindMaximumSubArray(arr, 0, length)
+	low, high, sum2 := cp04.FindMaximumSubArray(arr, 0, length)
 
 	t.Logf("Recursive    low:%d, high:%d, sum:%d", low, high, sum)
-	t.Logf("Linear       low:%d, high:%d, sum:%d", begin, end, sum)
+	t.Logf("Linear       low:%d, high:%d, sum:%d", begin, end, sum2)
 
 }
 
