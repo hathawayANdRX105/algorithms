@@ -1,10 +1,7 @@
 package codewarsproblem
 
 import (
-	"fmt"
 	"math"
-
-	"golang.org/x/tools/go/analysis/passes/ifaceassert"
 )
 
 // Sudoku Solution Validator 数独验证

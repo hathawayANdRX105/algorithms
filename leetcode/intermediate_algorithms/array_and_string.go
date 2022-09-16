@@ -12,7 +12,6 @@ func threeSum(nums []int) [][]int {
 	if len(nums) < 3 {
 		return nil
 	}
-
 	sort.Ints(nums)
 	var ans [][]int
 
