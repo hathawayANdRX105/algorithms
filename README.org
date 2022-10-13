@@ -4,9 +4,15 @@
 #+STARTUP: indent
 #+OPTIONS: ^:nil
 #+OPTIONS: \n:t
-* introduction
-this repository is used for learning algorithms.
-It contains three main directories where i code there.
-- leetcode mainly contains the solved codes of algorithms problem. 
-- intro_algorithms contains the solved codes for the book.
-- pkg is my basement util library.
+* Intro
+This repository is used for learning algorithms.
+It contains three main directories where I code there.
+
+* Repo Structure
+- `leetcode` mainly contains the solved codes of algorithms problem.
+- `intro_algorithms` contains the solved codes for the book.
+- `pkg` is the util library.
+- `codeforces` and `codewars` is similar with `leetcode`.
+- `doc` contains the documents about some algorithms or basic knowledge.
+- `assets` contains the assets used by the document in `doc`.
+- `test` contains the test unit codes.

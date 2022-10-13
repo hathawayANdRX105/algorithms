@@ -4,17 +4,22 @@
 *.dll
 *.so
 *.dylib
-*# 
+
 
 # some kinds of new ignore files
 *.vscode
 .osidian
 .projectile
 .mark
+*#
+
+# the directories need to be ignored
 *.idea
 .fleet
+
 # Test binary, built with `go test -c`
 *.test
+
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
