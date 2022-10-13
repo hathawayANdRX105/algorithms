@@ -4,6 +4,7 @@ import (
 	"algorithms/intro_algorithms/cp02"
 	"algorithms/pkg/generic_sort"
 	"fmt"
+	"strconv"
 	"testing"
 )
 
@@ -43,7 +44,7 @@ func TestExchange(t *testing.T) {
 }
 
 func TestMerge(t *testing.T) {
-	cp02.TestSort(true, 200, 100, cp02.MergeSort)
+	cp02.TestSort(true, 20, 10, cp02.MergeSort)
 }
 
 // TestPointerExchange 尝试寻找 利用指针交换两个值，如果交换值还存在细粒度的操作，需要提供操作空间

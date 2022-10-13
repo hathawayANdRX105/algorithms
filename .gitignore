@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+*# 
 
 # some kinds of new ignore files
 *.vscode
@@ -11,7 +12,7 @@
 .projectile
 .mark
 *.idea
-
+.fleet
 # Test binary, built with `go test -c`
 *.test
 

@@ -59,7 +59,7 @@ func partion(sortArr, mergeArr []int, prev, rear int, cmp func(o1, o2 int) bool)
 		return
 	}
 
-	mid := prev + (rear-prev)/2
+	mid := (prev + rear) >> 1
 
 	partion(mergeArr, sortArr, prev, mid, cmp)
 	partion(mergeArr, sortArr, mid+1, rear, cmp)
