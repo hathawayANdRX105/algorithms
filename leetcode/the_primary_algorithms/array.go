@@ -4,7 +4,6 @@ package the_primary_algorithms
 
 // 1.removeDuplicates 删除排序数组中重复项 已经在 array_and_string 的 summary 中实现
 
-
 // 2.MaxProfit
 // prices 数组一定有两个价格，否则无法产生利益，不需要提前判断长度
 func MaxProfit(prices []int) int {
@@ -105,12 +104,11 @@ func ContainsDuplicate1(nums []int) bool {
 	return false
 }
 
-
 // 4.ContainsDuplicate2 存在重复元素
 // 使用map
 func ContainsDuplicate2(nums []int) bool {
 	uniqueMap := make(map[int]struct{}, len(nums))
-	
+
 	for _, v := range nums {
 		if _, ok := uniqueMap[v]; ok {
 			return true
@@ -186,7 +184,6 @@ func PlusOne(digits []int) []int {
 
 // 8.moveZeroes 已经在 array_and_string 的 summary 中实现
 
-
 // 9.TwoSum 解决无序数组的两数之和的寻找
 func TwoSum(nums []int, target int) []int {
 	if len(nums) < 3 {
@@ -242,7 +239,6 @@ func IsValidSudoku(board [][]byte) bool {
 
 	return true
 }
-
 
 // 11.Rotate3 旋转图像 矩阵顺时针旋转90°
 func Rotate3(matrix [][]int) {
