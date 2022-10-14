@@ -1,0 +1,18 @@
+
+
+<2022-10-14 周五>
+- 1.别先想细节优化，做出来再优化，don‘t guess and face the concrete problem
+- 2.二分法 左右索引控制相遇时是否进行操作， 判断中值 先操作哪个索引 那个边界先收敛
+
+#+begin_src go
+	l, r := 0, len(nums)-1
+	for l <= r {
+		m := (l + r) >> 1
+
+		if nums[m] <= target {
+			l = m + 1
+		} else {
+			r = m - 1
+		}
+	}
+#+end_src

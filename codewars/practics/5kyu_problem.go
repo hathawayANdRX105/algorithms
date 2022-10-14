@@ -37,6 +37,7 @@ type PosPeaks struct {
 	Pos   []int
 	Peaks []int
 }
+
 // Pick peaks
 // https://www.codewars.com/kata/5279f6fe5ab7f447890006a7
 // 寻找不包含两侧边界的顶峰, 由一个数组组成
@@ -160,4 +161,3 @@ func printMap(m [][]int) {
 		println()
 	}
 }
-

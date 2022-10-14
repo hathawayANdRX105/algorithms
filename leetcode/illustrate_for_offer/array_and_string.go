@@ -1,6 +1,10 @@
 package illustrate_for_offer
 
-import "sort"
+import (
+	"sort"
+	"strconv"
+	"strings"
+)
 
 // array_and_string.go 是 illustrate_for_offer 关于 数组与字符串 的代码实现部分
 
@@ -217,7 +221,7 @@ func majorityElement1(nums []int) int {
 	return nums[m]
 }
 
-// majorityElement2 摩尔投票
+// majorityElement2 摩尔投票 贪心
 func majorityElement2(nums []int) int {
 	cur, count := nums[0], 1
 
@@ -235,4 +239,42 @@ func majorityElement2(nums []int) int {
 	}
 
 	return cur
+}
+
+// 45. 把数组排成最小的数
+// minNumber 直接拼接字符串性能也很快，先实现再说性能
+func minNumber(nums []int) string {
+	n := len(nums)
+	strs := make([]string, n)
+	for n > 0 {
+		n--
+		strs[n] = strconv.FormatInt(int64(nums[n]), 10) // less stack grow
+	}
+
+	// key: if a + b < b + a then a < b logically
+	sort.Slice(strs, func(i, j int) bool {
+		return strs[i]+strs[j] < strs[j]+strs[i]
+	})
+
+	return strings.Join(strs, "")
+}
+
+// 53 - I. 在排序数组中查找数字 I 并返回个数
+func search(nums []int, target int) int {
+	return getRightMargin(nums, target) - getRightMargin(nums, target-1)
+}
+
+func getRightMargin(nums []int, target int) int {
+	l, r := 0, len(nums)-1
+	for l <= r {
+		m := (l + r) >> 1
+
+		if nums[m] <= target {
+			l = m + 1
+		} else {
+			r = m - 1
+		}
+	}
+
+	return l
 }
