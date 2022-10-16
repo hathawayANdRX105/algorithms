@@ -1,6 +1,8 @@
 package illustrate_for_offer
 
 import (
+	"bytes"
+	"math"
 	"sort"
 	"strconv"
 	"strings"
@@ -277,4 +279,304 @@ func getRightMargin(nums []int, target int) int {
 	}
 
 	return l
+}
+
+// 53 - II. 0～n-1 中缺失的数字
+// missingNumber1 数列和法
+func missingNumber1(nums []int) int {
+	var sum int
+
+	for i := range nums {
+		sum += nums[i]
+	}
+	n := len(nums)
+	return (n+1)*n/2 - sum
+}
+
+// missingNumber2 异或运算
+func missingNumber2(nums []int) int {
+	// 0 1 2 3 正常情况
+	// 0 1 3   缺失情况
+	// index 直到 n - 2 的情况，因此从 n-1 开始，即len(nums)开始异或
+	var ans int = len(nums)
+	for i := range nums {
+		ans ^= nums[i] ^ i
+	}
+
+	return ans
+}
+
+// missingNumber3 二分查询
+func missingNumber3(nums []int) int {
+	// 0 1 2 3 4 正常情况
+	// 0 1 3 4 5 缺失情况
+	// 如果 nums[mid] = index 则说明缺失之不在 mid之前
+	l, r := 0, len(nums)-1
+	for l < r {
+		m := (l + r) >> 1
+
+		if nums[m] == m {
+			l = m + 1
+		} else {
+			r = m - 1
+		}
+	}
+
+	return l
+}
+
+// 57. 和为 s 的两个数字, nums 是递增排序的数组
+// twoSum1 为无序做法
+func twoSum1(nums []int, target int) []int {
+	m := make(map[int]struct{}, len(nums))
+
+	for i := range nums {
+		if _, ok := m[nums[i]]; ok {
+			return []int{target - nums[i], nums[i]}
+		}
+
+		m[target-nums[i]] = struct{}{}
+	}
+
+	return nil
+}
+
+// twoSum2 是针对递增数组的优化
+func twoSum2(nums []int, target int) []int {
+	l, r := 0, len(nums)-1
+
+	for nums[l]+nums[r] != target {
+		if nums[l]+nums[r] < target {
+			l++
+		} else {
+			r--
+		}
+	}
+
+	nums[0], nums[1] = nums[l], nums[r]
+	return nums[:2]
+}
+
+// the sum of arr[l, l + 1, ..., r]
+func getLRSum(l, r int) int {
+	return (r + l) * (r - l + 1) >> 1
+}
+
+// 57 - II. 和为 s 的连续正数序列[*双指针滑动区间]
+func findContinuousSequence(target int) [][]int {
+	var ans [][]int
+	// 滑动区间, (target >> 1) + (target >> 1 ) + 1 < target
+	// l, r 活动到 (target >> 1 ) + 1 停止
+	l, r := 1, 2
+	for l < r {
+		if getLRSum(l, r) == target {
+			// 当前子序列和 arr[l, l+1, ..., r] 为target
+			subSlice := make([]int, 0, r-l+1)
+			for i := l; i <= r; i++ {
+				subSlice = append(subSlice, i)
+			}
+			ans = append(ans, subSlice)
+			// 添加完当前子序列，前移
+			l++
+		} else if getLRSum(l, r) < target {
+			r++
+		} else {
+			l++
+		}
+	}
+
+	return ans
+}
+
+// 58 - I. 翻转单词顺序
+func reverseWords(s string) string {
+	s = strings.TrimRight(s, " ")
+	ans := make([]byte, 0, len(s))
+	n := len(s)
+	l, r := n-1, n-1
+	for l > -1 {
+		if s[l] != ' ' {
+			l--
+			continue
+		}
+
+		for i := l - 1; i <= r; i++ {
+			ans = append(ans, s[i])
+		}
+		ans = append(ans, ' ')
+
+		// 翻转后跳过接下来的空格
+		for l < n && s[l] == ' ' {
+			l--
+		}
+		r = l
+	}
+
+	if r > -1 {
+		for l <= r {
+			l++
+			ans = append(ans, s[l])
+		}
+	}
+
+	return string(ans)
+}
+
+// 58 - II. 左旋转字符串
+func reverseLeftWords(s string, n int) string {
+	if n < 1 {
+		return s
+	}
+
+	return s[n:] + s[:n]
+}
+
+// 61. 扑克牌中的顺子
+func isStraight(nums []int) bool {
+	sort.Ints(nums)
+
+	var i, zeroCount int
+	for nums[i] == 0 {
+		i++
+	}
+	zeroCount = i // i刚好为0的个数
+
+	for i+1 < len(nums) {
+		// 出现同牌情况，不是顺子
+		if nums[i] == nums[i+1] {
+			return false
+		}
+
+		// 检查是否连续
+		if nums[i]+1 != nums[i+1] {
+			// 不连续，通过大小王抵消
+			zeroCount -= nums[i+1] - nums[i] - 1
+			if zeroCount < 0 {
+				return false
+			}
+		}
+
+		i++
+	}
+
+	return true
+}
+
+// 评论方法 最差O(n)，不需要排序
+// https://leetcode.cn/leetbook/read/illustrate-lcof/e2lnqc/
+func isStraight2(nums []int) bool {
+	min, max := 14, 1
+	for i := range nums {
+		if nums[i] == 0 {
+			continue
+		}
+
+		if nums[i] > max {
+			max = nums[i]
+		}
+
+		if nums[i] < min {
+			min = nums[i]
+		}
+	}
+
+	// 顺子区间[除0外]最大值跟最小值差值必须小于4
+	if max-min > 4 {
+		return false
+	}
+
+	// 出现重复牌，则不是顺子
+	visit := make([]bool, 14)
+	for i := range nums {
+		if nums[i] != 0 {
+			if !visit[nums[i]] {
+				visit[nums[i]] = true
+			} else {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+// 66. 构建乘积数组
+func constructArr(a []int) []int {
+	n := len(a)
+	ans := make([]int, n)
+
+	// 前乘
+	l := 1
+	for i := 0; i < n; i++ {
+		ans[i] = l
+		l *= a[i]
+	}
+
+	// 后乘
+	l = 1
+	for n > 0 {
+		n--
+		ans[n] *= l
+		l *= a[n]
+	}
+
+	return ans
+}
+
+// 67. 把字符串转换成整数
+// the_primary_algorithms 中的 string.go 有相同实现，可以参考
+func strToInt(str string) int {
+	var ans, i int
+	// 抛弃空格
+	n := len(str)
+	for i < n && str[i] == ' ' {
+		i++
+	}
+	// 如果抛弃完空格后没有字符，则直接返回
+	if i >= n {
+		return 0
+	}
+
+	// 判断符号
+	var positive bool
+	if str[i] < '0' || str[i] > '9' {
+		if str[i] == '+' {
+			positive = true
+		} else if str[i] != '-' {
+			return 0
+		}
+		i++
+	} else {
+		positive = true
+	}
+
+	// 组成数字
+	lowerMax := math.MaxInt32 / 10
+	k := math.MaxInt32 % 10
+	for i < n {
+		unit := str[i] - '0'
+		if unit < 0 || unit > 9 {
+			break
+		}
+
+		if ans > lowerMax || (ans == lowerMax && unit > 7) {
+			ans = math.MaxInt32
+			k++
+			break
+		}
+
+		ans = ans*10 + int(unit)
+		i++
+
+	}
+
+	if !positive {
+		ans = ^ans + 1
+	}
+
+	if k > math.MaxInt32%10 && !positive {
+		ans--
+	}
+
+	return ans
 }
