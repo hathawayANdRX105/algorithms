@@ -196,7 +196,6 @@ func (mq *MaxQueue) Push_back(value int) {
 	for mq.sup.Len() > 0 && mq.sup.Back().Value.(int) < value {
 		mq.sup.Remove(mq.sup.Back())
 	}
-
 	mq.sup.PushBack(value)
 }
 
