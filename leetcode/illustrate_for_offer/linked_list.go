@@ -1,7 +1,5 @@
 package illustrate_for_offer
 
-import "encoding/pem"
-
 // 18. 删除链表的节点
 // ListNode is used to defined for singly-linked list.
 type ListNode struct {

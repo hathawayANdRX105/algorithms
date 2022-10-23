@@ -56,7 +56,7 @@ func findNumberIn2DArray1(matrix [][]int, target int) bool {
 	return false
 }
 
-// findNumberIn2DArray2 dfs 从右上角走到左下角 O(m + n)
+// findNumberIn2DArray2 bfsForOrder 从右上角走到左下角 O(m + n)
 func findNumberIn2DArray2(matrix [][]int, target int) bool {
 	if len(matrix) < 1 || len(matrix[0]) < 1 || matrix[0][0] > target {
 		return false
